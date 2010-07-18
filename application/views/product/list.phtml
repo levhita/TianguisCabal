@@ -1,0 +1,29 @@
+<p><a href="<?php echo BASE_URL ?>/products/edit/?id=0">Añadir un Producto</a></p>
+<?php if ( !empty($products) ) { ?>
+<table>
+<tr><th>Producto Id</th><th>Usuario Id</th><th>Categoria Id</th><th>Nombre</th><th>Descripcion</th><th>Imagen</th><th>Precio</th><th>Cantidad</th><th>Calidad</th><th>Transaccion</th><th>Cambio por</th><th>Fecha</th></tr>
+  <?php
+  foreach ($products AS $product) {
+    $Products = (object)$product;?>
+    <tr>
+      <td><?php echo $Products->product_id?>
+      <td><?php echo $Products->user_id?> </td>
+      <td><?php echo $Products->category_id?></td>
+      <td><?php echo $Products->name?></td>
+      <td><?php echo $Products->description?></td>
+      <td><?php echo $Products->picture?></td>
+      <td><?php echo $Products->price?></td>
+      <td><?php echo $Products->quantity?></td>
+      <td><?php echo $Products->quality?></td>
+      <td><?php echo $Products->transaction?></td>
+      <td><?php echo $Products->exchange_for?></td>
+      <td><?php echo $Products->date?></td>
+      <td>
+        <a href="<?php echo BASE_URL ?>/products/edit/?id=<?php echo $Products->product_id ?>">Editar</a>
+      </td>
+    </tr>
+  <?php }?>
+</table>
+<?php } else { ?>
+<p><strong>No hay ningun Producto</strong></p>
+<?php }?>

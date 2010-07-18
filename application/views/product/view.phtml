@@ -1,0 +1,16 @@
+<ul>
+<li><strong>Producto Id:</strong><?php echo $Products->product_id?></li>
+<li><strong>Usuario Id:</strong><?php echo $Products->user_id?></li>
+<li><strong>Categoria Id:</strong><?php echo $Products->category_id?></li>
+<li><strong>Nombre:</strong><?php echo $Products->name?></li>
+<li><strong>Descripcion:</strong><?php echo $Products->description?></li>
+<li><strong>Imagen:</strong><?php echo $Products->picture?></li>
+<li><strong>Precio:</strong><?php echo $Products->price?></li>
+<li><strong>Cantidad:</strong><?php echo $Products->quantity?></li>
+<li><strong>Calidad:</strong><?php echo $Products->quality?></li>
+<li><strong>Transaccion:</strong><?php echo $Products->transaction?></li>
+<li><strong>Cambio por:</strong><?php echo $Products->exchange_for?></li>
+<li><strong>Fecha:</strong><?php echo $Products->date?></li>
+</ul>
+
+<p><a href="<?php echo BASE_URL ?>/products/edit/?id=<?php echo $Products->OrdenID?>">Editar</a> || <a href="<?php echo BASE_URL?>/products">Ver todos</a></p>

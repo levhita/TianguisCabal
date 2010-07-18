@@ -1,0 +1,61 @@
+<?php /**@todo Checking for isset on each variable is too much burn just to avoid notices, Discuss in class**/?>
+
+<form action="<?php echo BASE_URL?>/products/save" method="POST">
+  
+  <label for="product_id">Producto Id:</label><input type="text" name="product_id" id="product_id"
+  value="<?php echo (isset($Products->product_id))?$Products->product_id:'';?>" readonly="readonly"/><br />
+  
+  <label for="user_id">Usuario Id:</label><input type="text" name="user_id" id="user_id"
+  value="<?php echo (isset($Products->user_id))?$Products->user_id:'';?>"/><br />
+  
+  <label for="name">Nombre</lable><input type="text" name="name" id="name"
+  value="<?php echo (isset($Products->name))?$Products->name:'';?>"/><br />
+  
+  <label for="description">Descripcion</lable><input type="text" name="description" id="description"
+  value="<?php echo (isset($Products->description))?$Products->description:'';?>"/><br />
+  
+  <label for="picture">Foto</lable><input type="text" name="picture" id="picture"
+  value="<?php echo (isset($Products->picture))?$Products->picture:'';?>"/><br />
+  
+  <label for="quantity">Cantidad</lable><input type="text" name="quantity" id="quantity"
+  value="<?php echo (isset($Products->quantity))?$Products->quantity:'';?>"/><br />
+    
+  <label for="quality">Calidad:</label>
+    <select name="quality">
+      <?php /**<optgroup label="Comunmente tenemos...">**/?>
+      	<option>excellent</option>
+      	<option>very good</option>
+      <?php /**</optgroup>**/?>
+      <?php /**<optgroup label="Especial de la semana...">**/?>
+      	<option>good</option>
+      	<option>average</option>
+      	<option>parts</option>
+      <?php /**</optgroup>**/?>
+    </select><br />
+  <?php isset($Products->quality)?$Products->quality:'';?>
+  
+  <label for="transaction">Transaccion:</label>
+    <select name="transaction">
+      <?php /**<optgroup label="Comunmente tenemos...">**/?>
+      	<option>buy</option>
+      	<option>sell</option>
+      <?php /**</optgroup>**/?>
+      <?php /**<optgroup label="Especial de la semana...">**/?>
+      	<option>exchange</option>
+      <?php /**</optgroup>**/?>
+    </select><br />
+  <?php isset($Products->transaction)?$Products->transaction:'';?>
+
+  <label for="exchange_for">Cambio por</lable><input type="text" name="exchange_for" id="exchange_for"
+  value="<?php echo (isset($Products->exchange_for))?$Products->exchange_for:'';?>"/><br />  
+  
+  <label for="date">Fecha</lable><input type="text" name="date" id="date"
+  value="<?php echo (isset($Products->date))?$Products->date:'';?>"/><br />  
+
+  <input type="button" onclick="window.location.href='<?php echo BASE_URL?>/products'" value="Cancelar"/>
+  <input type="submit" value="<?php echo _('Salvar') ?>"/>
+
+  <?php if ( isset($Products->product_id) ) { ?>
+    <input type="button" onclick="window.location.href='<?php echo BASE_URL ?>/products/delete/?id=<?php echo $Products->date?>'" value="<?php echo _('Borrado') ?>"/>
+  <?php }?>
+</form>
