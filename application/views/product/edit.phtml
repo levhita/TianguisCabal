@@ -1,6 +1,6 @@
 <?php /**@todo Checking for isset on each variable is too much burn just to avoid notices, Discuss in class**/?>
 
-<form action="<?php echo BASE_URL?>/products/save" method="POST">
+<form action="<?php echo BASE_URL?>/product/save" method="POST">
   
   <label for="product_id">Producto Id:</label><input type="text" name="product_id" id="product_id"
   value="<?php echo (isset($Products->product_id))?$Products->product_id:'';?>" readonly="readonly"/><br />
@@ -52,10 +52,10 @@
   <label for="date">Fecha</lable><input type="text" name="date" id="date"
   value="<?php echo (isset($Products->date))?$Products->date:'';?>"/><br />  
 
-  <input type="button" onclick="window.location.href='<?php echo BASE_URL?>/products'" value="Cancelar"/>
+  <input type="button" onclick="window.location.href='<?php echo BASE_URL?>/product'" value="Cancelar"/>
   <input type="submit" value="<?php echo _('Salvar') ?>"/>
 
   <?php if ( isset($Products->product_id) ) { ?>
-    <input type="button" onclick="window.location.href='<?php echo BASE_URL ?>/products/delete/?id=<?php echo $Products->date?>'" value="<?php echo _('Borrado') ?>"/>
+    <input type="button" onclick="window.location.href='<?php echo BASE_URL ?>/product/delete/?id=<?php echo $Products->date?>'" value="<?php echo _('Borrado') ?>"/>
   <?php }?>
 </form>

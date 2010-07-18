@@ -45,6 +45,7 @@ class Autoloader {
       return false;
     }
     require_once APPLICATION_PATH . '/' . $path . '.php';
+    return true;
   }
   
   /**

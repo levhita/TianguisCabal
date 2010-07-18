@@ -4,10 +4,10 @@
  * @author Argel Arias <levhita@gmail.com>
  * @package TianguisCabal
  */
-class ProductsModel extends DAO {
+class ProductModel extends DAO {
   
   public function __construct($id){
-    parent::__construct('Products', (int)$id);
+    parent::__construct('product', (int)$id);
     parent::setIdField('product_id');
   }
   /**
@@ -16,7 +16,7 @@ class ProductsModel extends DAO {
    */
   public static function getAll()
   {
-    $sql = 'SELECT * FROM product';
+    $sql = "SELECT * FROM product";
     $DbConnection = DbConnection::getInstance();
     return $DbConnection->getAll($sql);
   }

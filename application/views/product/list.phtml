@@ -1,4 +1,4 @@
-<p><a href="<?php echo BASE_URL ?>/products/edit/?id=0">Añadir un Producto</a></p>
+<p><a href="<?php echo BASE_URL ?>/product/edit/?id=0">Añadir un Producto</a></p>
 <?php if ( !empty($products) ) { ?>
 <table>
 <tr><th>Producto Id</th><th>Usuario Id</th><th>Categoria Id</th><th>Nombre</th><th>Descripcion</th><th>Imagen</th><th>Precio</th><th>Cantidad</th><th>Calidad</th><th>Transaccion</th><th>Cambio por</th><th>Fecha</th></tr>
@@ -19,7 +19,7 @@
       <td><?php echo $Products->exchange_for?></td>
       <td><?php echo $Products->date?></td>
       <td>
-        <a href="<?php echo BASE_URL ?>/products/edit/?id=<?php echo $Products->product_id ?>">Editar</a>
+        <a href="<?php echo BASE_URL ?>/product/edit/?id=<?php echo $Products->product_id ?>">Editar</a>
       </td>
     </tr>
   <?php }?>
