@@ -1,0 +1,28 @@
+  <form action="<?php echo BASE_URL?>/user/save"  method="post">
+    <p>
+      <input type="text" name="user_id" id="user_id" value="<?php echo htmlentities($User->user_id)?>"/>
+      <label for="name">Usuario:</label><input type="text" name="name" id="name" value="<?php echo htmlentities($User->name)?>"/><br/>
+      <label for="full_name">Nombre Completo:</label><input type="text" name="full_name" id="full_name" value="<?php echo htmlentities($User->full_name)?>"/><br/>
+      <label for="email">Email:</label><input type="text" name="email" id="email" value="<?php echo htmlentities($User->email)?>"><br/>
+      <label for="twitter">Twitter:</label><input type="text" name="twitter" id="twitter" value="<?php echo htmlentities($User->twitter)?>"><br/>
+      <label for="description">Descripción:</label><br/>
+      <textarea name="description" id="description"><?php echo htmlentities($User->description)?></textarea><br/>
+      
+      <label for="role">Role:</label>
+      <select name="role" id="role" <?php echo ( $role_field )?'':'disabled="disabled"'; ?>>
+        <option value="registered"  <?php echo ($User->role=='registered')?'selected="selected"':'';?>>Registrado</option>
+        <option value="moderator"   <?php echo ($User->role=='moderator')?'selected="selected"':'';?>>Moderador</option>
+        <option value="admin"       <?php echo ($User->role=='admin')?'selected="selected"':'';?>>Administrador</option>
+      </select>
+    </p>
+    
+    <p>
+      Para Cambiar tu contraseña escribe una nueva<br/>
+      <label for="password">Contraseña:</label><input type="password" name="password" id="password"/><br/>
+      <label for="repeat_password">Repitela:</label><input type="password" name="repeat_password" id="repeat_password"/><br/>
+    </p>
+    
+    <p>
+      <input type="submit" value="Guardar"/>
+    </p>
+  </form>
