@@ -37,7 +37,7 @@ class UserController extends controller
     }
     //@todo Create a {@link Session} object to handle session stuff
     $_SESSION['user_id'] = $User->getId();
-    $this->gotoPage("/user/view/?user_id=$User->user_id", "You had logged in as ". htmlspecialchars($User->name));
+    $this->gotoPage("/product", "You had logged in as ". htmlspecialchars($User->name));
   }
 
   
@@ -50,7 +50,17 @@ class UserController extends controller
     $User = new UserModel((int)$user_id);
     $User->load();
     
+    $edit_link = false;
+    if ( $LoggedUser = UserModel::getLoggedInUser() ) {
+      if ( $LoggedUser->role == 'admin' ) {
+        $edit_link=true;
+      } else if ( $LoggedUser->user_id == $user_id ) {
+        $edit_link=true;
+      }
+    }
+    $View->assign('edit_link', $edit_link);
     $View->assign('User', $User);
+    
     $View->display();
   }
   
@@ -69,28 +79,55 @@ class UserController extends controller
   }
   
   /**
-   * @todo this used to be the save from register, fixit to only save in case of
-   * a user wanting to edit his info.
    * @return null
    */
   public function saveAction() {
-    /*$name = $_POST['name'];
-    if ( UserModel::getByName($name) ) {
-      $this->gotoPage('/user/new', 'That username is already taken');
+    
+    if ( !$user_id = $_POST['user_id'] ) {
+      self::gotoPage('/product', 'Mmmmm');
     }
     
-    $User             = new UserModel(0);
-    $User->name       = $name;
-    $User->password   = $_POST['password'];
+    if( !$LoggedUser = UserModel::getLoggedInUser() ) {
+      self::gotoPage('/', _('You Haven\'t started a session.'));
+    }
+    
+    if ( $LoggedUser->getId() != $user_id ) {
+      if ( $LoggedUser->role != 'admin' ) {
+        self::gotoPage('/', _('You don\'t have permission to do that.')); 
+      }
+    }
+
+    $User = new UserModel((int)$user_id);
+    
+    /** 
+     * To overwrite the password the user must set both password and
+     * repeat_passwor be the same, and the user be an admin or saving himself
+     */
+    if (!empty($_POST['password']) && !empty($_POST['repeat_password']) ) {
+      if ( $_POST['passsword'] != $_POST['repeat_passsword'] ) {
+        self::gotoPage("user/edit/?user_id=$user_id", _('The password doesn\t match') );
+      }
+      $User->$password = sha1($_POST['password']);
+    }
+    
+    /** Only Admins can modify the role **/
+    if ( $LoggedUser->role == 'admin' ) {
+      $User->role = $_POST['role'];
+    }
+       
+    $User->name       = $_POST['name'];
     $User->full_name  = $_POST['full_name'];
     $User->email      = $_POST['email'];
-    $User->date       = date("Y-m-d");
+    $User->description= $_POST['description'];
+    $User->twitter    = $_POST['twitter'];
     
-    $User->save();
+    try {
+      $User->save();
+    } catch(Exception $e) {
+      self::gotoPage("/user/edit/?user_id=$user_id", _('Couldn\' save the user') );
+    }
     
-    $Mailer = new Mailer();
-    $Mailer->send($User->email, $User->full_name, 'Please validate your email account', 'Click Here');
-    $this->gotoPage("/user/view/?user_id=$User->user_id", "User saved as: ". htmlspecialchars($User->name));*/
+    self::gotoPage("/user/view/?user_id=$user_id", _('User Saved') );
   }
   
   public function registerAction() {
@@ -137,5 +174,26 @@ class UserController extends controller
     $User->role='registered';
     $User->save();
     $this->gotoPage("/user", "Congratulations, now you are fully registered!<br/>please login");
+  }
+  
+  public function editAction() {
+    $Request = Request::getInstance();
+    $user_id = $Request->user_id;
+
+    $User = new UserModel((int)$user_id);
+    $User->load();
+   
+    $LoggedUser = UserModel::getLoggedInUser();
+    $role_field = false;
+    if($LoggedUser->role == 'admin' ){
+      $role_field = true;
+    }
+    $View= new View('user/edit');
+    
+    $View->assign('_title_', _('Edit User') );
+    $View->assign('User', $User);
+    $View->assign('role_field', $role_field);
+    
+    $View->display();
   }
 }

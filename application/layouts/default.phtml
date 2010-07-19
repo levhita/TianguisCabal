@@ -45,6 +45,7 @@ $User = UserModel::getLoggedInUser();
             <?php
             if ($User) {?>
               Sesión iniciada como <strong><?php echo htmlspecialchars($User->full_name);?></strong><br/><a href="<?php echo BASE_URL ?>/user/logout">Terminar Sesión</a>
+              || <a href="<?php echo BASE_URL . "/user/view/?user_id=".$User->getId()?>">Mi cuenta</a>
             <?php } else { ?>
               <a href="<?php echo BASE_URL ?>/user">Login</a>
             <?php }?>

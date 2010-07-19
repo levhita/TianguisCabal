@@ -1,1 +1,4 @@
 <pre><?php print_r($User)?></pre>
+<?php if($edit_link) { ?>
+<a href="<?php echo BASE_URL."/user/edit/?user_id=" . $User->user_id ?>">Editar Usuario</a>
+<?php }?> 
